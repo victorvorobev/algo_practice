@@ -1,17 +1,33 @@
 """
 Tests for search functions
 """
-
 import random
+from dataclasses import dataclass
 
 import pytest
 from algo import search
 
 MAX_VALUE = 1_000_000
 
+
+@dataclass
+class FuncToTest:
+    """
+    Data class to hold test function with some test parameters
+    """
+    func: callable
+    sort_required: bool
+
+
 SEARCH_FUNCTIONS = [
-    search.linear_search,
+    pytest.param(FuncToTest(func=search.linear_search, sort_required=False), id='linear_search'),
 ]
+
+
+@pytest.fixture(name='search_func', params=SEARCH_FUNCTIONS)
+def search_func_fixture(request):
+    """Fixture that returns test function with its meta information"""
+    return request.param
 
 
 @pytest.fixture(name='data_sample',
@@ -35,7 +51,7 @@ def should_be_sorted_fixture(request):
 
 
 @pytest.fixture(name='test_data')
-def test_data_fixture(should_be_found, should_be_sorted, data_sample):
+def test_data_fixture(should_be_found, should_be_sorted, data_sample, search_func):
     """
     Fixture that prepares test data
     :param should_be_found: flag that shows whether returned target value should be findable or not
@@ -43,6 +59,8 @@ def test_data_fixture(should_be_found, should_be_sorted, data_sample):
     :param data_sample: fixture test array as a parameter
     :return: array to search in, target value to search, expected result
     """
+    if not should_be_sorted and search_func.sort_required:
+        pytest.skip('Skip test due to unsorted input and required sorted data')
 
     if should_be_sorted:
         data_sample.sort()
@@ -56,11 +74,10 @@ def test_data_fixture(should_be_found, should_be_sorted, data_sample):
             target_value -= 1
             if target_value not in data_sample:
                 break
-    return data_sample, target_value, expected_result
+    return search_func.func, data_sample, target_value, expected_result
 
 
-@pytest.mark.parametrize('search_func', SEARCH_FUNCTIONS)
-def test_search(test_data, search_func):
+def test_search(test_data):
     """Test function that covers all cases with search algorithms"""
-    data, target_value, expected_result = test_data
+    search_func, data, target_value, expected_result = test_data
     assert expected_result == search_func(data, target_value)
