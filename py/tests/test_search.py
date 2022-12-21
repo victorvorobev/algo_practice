@@ -22,6 +22,7 @@ class FuncToTest:
 SEARCH_FUNCTIONS = [
     pytest.param(FuncToTest(func=search.linear_search, sort_required=False), id='linear_search'),
     pytest.param(FuncToTest(func=search.binary_search, sort_required=True), id='binary_search'),
+    pytest.param(FuncToTest(func=search.binary_search_recursive, sort_required=True), id='binary_search_recursive'),
 ]
 
 
