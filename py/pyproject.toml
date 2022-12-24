@@ -13,7 +13,8 @@ dev = [
     "pytest",
     "pylint",
     "pylint-quotes",
-    "flake8"
+    "flake8",
+    "mypy",
 ]
 
 [build-system]
