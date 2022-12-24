@@ -3,6 +3,8 @@ name: Python CI
 on:
   pull_request:
     branches: [ master ]
+    paths:
+      - 'py/**'
   push:
     branches: [ master ]
 
@@ -24,6 +26,8 @@ jobs:
           pip install .[dev]
       - name: Lint with flake8
         run: make style-check
+      - name: Type check with mypy
+        run: make type-check
       - name: Lint with pylint
         run: make lint
       - name: Test
