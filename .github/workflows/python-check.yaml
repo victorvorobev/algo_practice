@@ -3,6 +3,8 @@ name: Python CI
 on:
   pull_request:
     branches: [ master ]
+    paths:
+      - 'py/**'
   push:
     branches: [ master ]
 
