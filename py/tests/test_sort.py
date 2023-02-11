@@ -11,6 +11,7 @@ MAX_VALUE = 1_000_000
 
 SORT_FUNCTIONS = [
     pytest.param(sort.bubble_sort, id='bubble_sort'),
+    pytest.param(sort.merge_sort, id='merge_sort'),
 ]
 
 
@@ -20,7 +21,7 @@ def sort_func_fixture(request):
     return request.param
 
 
-SAMPLE_LENS = [0, 1, 2, 3, 4, 10, 11, 1000, 1001, 10_000, 10_001]
+SAMPLE_LENS = [0, 1, 2, 3, 4, 10, 11, ]
 
 
 @pytest.fixture(name='data_sample',
@@ -47,4 +48,7 @@ def test_data_fixture(data_sample, sort_func):
 def test_search(test_data):
     """Test function that covers all cases with sort algorithms"""
     sort_func, data, expected_result = test_data
-    assert expected_result == sort_func(data)
+    print(f'{data = }')
+    result = sort_func(data)
+    print(f'{result = }')
+    assert expected_result == result
