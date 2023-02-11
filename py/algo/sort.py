@@ -56,3 +56,28 @@ def merge_sort(array: list[int]) -> list[int]:
         r_index += 1
 
     return result
+
+
+def quick_sort(array: list[int]) -> list[int]:
+    """
+    Divide and conquer, O(nlog(n))
+    :param array: Array to sort
+    :return: sorted array
+    """
+    array_size = len(array)
+    if array_size <= 1:
+        return array
+
+    mid = array_size // 2
+    pivot = array[mid]
+    left = []
+    right = []
+    equal = []
+    for i in array:
+        if i < pivot:
+            left.append(i)
+        elif i == pivot:
+            equal.append(i)
+        else:
+            right.append(i)
+    return quick_sort(left) + equal + quick_sort(right)
