@@ -58,6 +58,22 @@ def merge_sort(array: list[int]) -> list[int]:
     return result
 
 
+def select_sort(array: list[int]) -> list[int]:
+    """
+    Find required element in array and put it into desired place
+    :param array: Array to sort
+    :return: sorted array
+    """
+    array_size = len(array)
+    for i in range(array_size):
+        min_idx = i
+        for j in range(i + 1, array_size):
+            if array[min_idx] > array[j]:
+                min_idx = j
+        array[i], array[min_idx] = array[min_idx], array[i]
+    return array
+
+
 def quick_sort(array: list[int]) -> list[int]:
     """
     Divide and conquer, O(nlog(n))
