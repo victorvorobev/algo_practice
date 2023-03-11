@@ -13,6 +13,7 @@ SORT_FUNCTIONS = [
     pytest.param(sort.bubble_sort, id='bubble_sort'),
     pytest.param(sort.merge_sort, id='merge_sort'),
     pytest.param(sort.quick_sort, id='quick_sort'),
+    pytest.param(sort.select_sort, id='select_sort'),
 ]
 
 
