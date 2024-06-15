@@ -4,10 +4,10 @@ type-check:
 	mypy algo
 
 lint:
-	pylint --fail-under=10 algo tests --max-line-length=$(LINE_LENGTH) --load-plugins pylint_quotes
+	ruff check .
 
 style-check:
-	flake8 algo tests --max-line-length=$(LINE_LENGTH)
+	ruff format . --check
 
 test:
 	pytest tests

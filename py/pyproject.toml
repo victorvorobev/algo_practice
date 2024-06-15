@@ -11,9 +11,7 @@ authors = [
 [project.optional-dependencies]
 dev = [
     "pytest",
-    "pylint",
-    "pylint-quotes",
-    "flake8",
+    "ruff",
     "mypy",
 ]
 
