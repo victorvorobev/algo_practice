@@ -1,0 +1,36 @@
+name: C++ CI
+
+on:
+  pull_request:
+    branches: [ master ]
+    paths:
+      - 'cpp/**'
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./cpp
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update 
+          sudo apt install -y \
+            build-essential \
+            cmake
+
+      - name: Create Build directory
+        run: mkdir -p build
+
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      - name: Build the Project
+        run: cmake --build build --config Release
+
+      - name: Dummy test
+        run: ./build/algo_practice
