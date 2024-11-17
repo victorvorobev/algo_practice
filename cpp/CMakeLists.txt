@@ -1,12 +1,14 @@
-cmake_minimum_required(VERSION 3.13.4)
+cmake_minimum_required(VERSION 3.14)
 
-project(algo_practice)
+project(algo_practice VERSION 0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+option(BUILD_AP_TESTS "Build tests" ON)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC "${PROJECT_BINARY_DIR}" "include"
-)
+message(STATUS "==================== algo-practice ====================")
+message(STATUS "Build algo practice tests: ${BUILD_AP_TESTS}")
+message(STATUS "=======================================================")
+
+add_subdirectory(src)
